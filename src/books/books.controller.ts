@@ -6,8 +6,11 @@ import {
   Param,
   Post,
   Put,
+  ValidationPipe,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
+import { CreateBookDto } from './dto/create-book.dto';
+import { UpdateBookDto } from './dto/update-book.dto';
 
 @Controller('books')
 export class BooksController {
@@ -24,19 +27,17 @@ export class BooksController {
   }
 
   @Post()
-  create(
-    @Body() book: { title: string; author: string; publishedYear: number },
-  ) {
-    return this.booksService.create(book);
+  create(@Body(ValidationPipe) createBookDto: CreateBookDto) {
+    return this.booksService.create(createBookDto);
   }
 
   @Put(':id')
   update(
     @Param('id') id: string,
-    @Body()
-    bookUpdate: { title?: string; author?: string; publishedYear: number },
+    @Body(ValidationPipe)
+    updateBookDto: UpdateBookDto,
   ) {
-    return this.booksService.update(id, bookUpdate);
+    return this.booksService.update(id, updateBookDto);
   }
 
   @Delete(':id')
