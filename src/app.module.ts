@@ -5,6 +5,8 @@ import { BooksModule } from './books/books.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Book } from './books/entity/book.entity';
 import { UsersModule } from './users/users.module';
+import { User } from './users/entities/user.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -12,7 +14,7 @@ import { UsersModule } from './users/users.module';
       type: 'sqlite', // <--- Specify your database type here
       database: 'database.sqlite', // <--- Path to your DB file (for SQLite) or database name
 
-      entities: [Book], // <--- **IMPORTANT:** This array will hold your Entity classes (e.g., [User, Product])
+      entities: [Book, User], // <--- **IMPORTANT:** This array will hold your Entity classes (e.g., [User, Product])
       //     You can also use a glob pattern like ['dist/**/*.entity{.ts,.js}']
       //     but explicitly listing them is often clearer for smaller projects.
 
@@ -25,6 +27,7 @@ import { UsersModule } from './users/users.module';
     }),
     BooksModule,
     UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
