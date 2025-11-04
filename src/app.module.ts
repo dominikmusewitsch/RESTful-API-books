@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { BooksModule } from './books/books.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Book } from './books/entity/book.entity';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { Book } from './books/entity/book.entity';
       logging: false, // Set to 'all' or true to see SQL queries in the console (useful for debugging)
     }),
     BooksModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
