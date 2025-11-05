@@ -1,4 +1,4 @@
-![CI](https://github.com/<your-username>/<repo-name>/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/dominikmusewitsch/RESTful-API-books/actions/workflows/ci.yml/badge.svg)
 
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
