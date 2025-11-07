@@ -14,13 +14,14 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
       context.getHandler(),
       context.getClass(),
     ]);
-    if (isPublic) {
-      return true; // Public route
+
+    if (isPublic) return true;
+
+    try {
+      // super.canActivate kann boolean | Promise<boolean> zurückgeben
+      return (await super.canActivate(context)) as boolean;
+    } catch (err) {
+      throw err; // propagiert UnauthorizedException korrekt
     }
-
-    // Wichtig: await super.canActivate, sonst kann es 401 auf async-Umgebung geben
-    const result = (await super.canActivate(context)) as boolean;
-
-    return result;
   }
 }
