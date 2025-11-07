@@ -12,12 +12,14 @@ import {
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
+import { Public } from '../common/decorators/public.decorators';
 
 @Controller('books')
 export class BooksController {
   constructor(private readonly booksService: BooksService) {}
 
   @Get()
+  @Public()
   findAll() {
     return this.booksService.findAll();
   }
