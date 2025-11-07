@@ -28,7 +28,7 @@ dotenv.config(); // <-- Initialisierung unbedingt hier oder in main.ts
       //     **NEVER use in production** as it can lead to data loss.
       //     Use TypeORM Migrations for production schema changes.
 
-      logging: false, // Set to 'all' or true to see SQL queries in the console (useful for debugging)
+      logging: true, // Set to 'all' or true to see SQL queries in the console (useful for debugging)
     }),
     BooksModule,
     UsersModule,

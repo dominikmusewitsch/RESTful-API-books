@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { v4 as uuidv4 } from 'uuid';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { NotFoundException } from '@nestjs/common';
@@ -27,10 +26,7 @@ export class BooksService {
   }
 
   async create(createBookDto: CreateBookDto): Promise<Book> {
-    const newBook = this.bookRepository.create({
-      id: uuidv4(), // zufällige UUID statt inkrementeller ID
-      ...createBookDto,
-    });
+    const newBook = this.bookRepository.create(createBookDto);
     return this.bookRepository.save(newBook);
   }
 

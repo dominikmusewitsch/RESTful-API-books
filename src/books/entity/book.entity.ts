@@ -11,6 +11,6 @@ export class Book {
   @Column({ nullable: false }) // 'lastName' column, can be null
   author: string; // `?` in TypeScript means the property is optional
 
-  @Column({ nullable: false }) // 'email' column, unique and not null
+  @Column({ name: 'publishedyear', nullable: false }) // 'email' column, unique and not null
   publishedYear: number;
 }
