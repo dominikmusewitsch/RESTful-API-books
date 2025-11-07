@@ -7,13 +7,18 @@ import { Book } from './books/entity/book.entity';
 import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
 import { AuthModule } from './auth/auth.module';
+import * as dotenv from 'dotenv';
+
+dotenv.config(); // <-- Initialisierung unbedingt hier oder in main.ts
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres', // <--- Specify your database type here
-      url: 'postgres://dominik:dumdum@localhost:5432/restful_api_books_db',
-
+      url: process.env.DATABASE_URL,
+      ssl: {
+        rejectUnauthorized: false,
+      },
       entities: [Book, User], // <--- **IMPORTANT:** This array will hold your Entity classes (e.g., [User, Product])
       //     You can also use a glob pattern like ['dist/**/*.entity{.ts,.js}']
       //     but explicitly listing them is often clearer for smaller projects.
