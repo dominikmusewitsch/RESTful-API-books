@@ -1,11 +1,20 @@
 FROM node:22
 
+# Arbeitsverzeichnis setzen
+WORKDIR /app
 
+# Package-Dateien kopieren und Dependencies installieren
+COPY package*.json ./
+RUN npm ci
+
+# Restliche Dateien kopieren
 COPY . .
 
-RUN npm install
+# NestJS Projekt bauen
+RUN npm run build
 
-EXPOSE 3000
+# Render setzt PORT automatisch
+EXPOSE 10000
 
-
-CMD ["npm", "run", "start"]
+# Production Start
+CMD ["node", "dist/src/main.js"]
