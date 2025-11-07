@@ -11,8 +11,8 @@ import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'sqlite', // <--- Specify your database type here
-      database: 'database.sqlite', // <--- Path to your DB file (for SQLite) or database name
+      type: 'postgres', // <--- Specify your database type here
+      url: 'postgres://dominik:dumdum@localhost:5432/restful_api_books_db',
 
       entities: [Book, User], // <--- **IMPORTANT:** This array will hold your Entity classes (e.g., [User, Product])
       //     You can also use a glob pattern like ['dist/**/*.entity{.ts,.js}']
