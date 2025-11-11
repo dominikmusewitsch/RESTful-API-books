@@ -17,18 +17,36 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v3
         with:
-          node-version: '22'
+          node-version: "22"
 
-      - name: Cache Node modules
+      # Frontend
+      - name: Cache frontend Node modules
         uses: actions/cache@v3
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          path: frontend/node_modules
+          key: ${{ runner.os }}-node-frontend-${{ hashFiles('frontend/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-node-frontend-
 
-      - name: Install dependencies
+      - name: Install frontend dependencies
         run: npm ci
+        working-directory: ./frontend
 
-      - name: Run tests
+      # Backend
+      - name: Cache backend Node modules
+        uses: actions/cache@v3
+        with:
+          path: backend/node_modules
+          key: ${{ runner.os }}-node-backend-${{ hashFiles('backend/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-backend-
+
+      - name: Install backend dependencies
+        run: npm ci
+        working-directory: ./backend
+
+      # Optional: Backend Tests
+      - name: Run backend tests
+        if: ${{ always() }}
         run: npm test
+        working-directory: ./backend
