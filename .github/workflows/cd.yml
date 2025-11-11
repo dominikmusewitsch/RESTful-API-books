@@ -39,4 +39,5 @@ jobs:
         working-directory: ./frontend
 
       # 5. Docker Buildx Setup
-      - name: Set up Doc
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
