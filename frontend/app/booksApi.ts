@@ -3,14 +3,14 @@
 import { Book } from "./types";
 
 export async function fetchBooks(): Promise<Book[]> {
-  const res = await fetch(`${process.env.REACT_APP_API_URL}/books`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/books`);
   if (!res.ok) throw new Error("Fehler beim Laden der Bücher");
   return res.json();
 }
 
 export async function createBook(book: Omit<Book, "id">) {
   const token = localStorage.getItem("token");
-  const res = await fetch(`${process.env.REACT_APP_API_URL}/books`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/books`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -24,7 +24,7 @@ export async function createBook(book: Omit<Book, "id">) {
 
 export async function updateBook(id: string, book: Partial<Book>) {
   const token = localStorage.getItem("token");
-  const res = await fetch(`${process.env.REACT_APP_API_URL}/books/${id}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/books/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -38,7 +38,7 @@ export async function updateBook(id: string, book: Partial<Book>) {
 
 export async function deleteBook(id: string) {
   const token = localStorage.getItem("token");
-  const res = await fetch(`${process.env.REACT_APP_API_URL}/books/${id}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/books/${id}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${token}`,
