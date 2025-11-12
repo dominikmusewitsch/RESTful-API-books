@@ -1,20 +1,32 @@
-FROM node:22
+# # ---------- build stage ----------
+# FROM node:22 AS builder
+# WORKDIR /app
 
-# Arbeitsverzeichnis setzen
-WORKDIR /app
+# # only copy package files first for better caching
+# COPY package*.json ./
+# RUN npm ci
 
-# Package-Dateien kopieren und Dependencies installieren
-COPY package*.json ./
-RUN npm ci
+# # copy rest and build
+# COPY . .
+# RUN npm run build
 
-# Restliche Dateien kopieren
-COPY . .
+# # ---------- production stage ----------
+# FROM node:22-slim AS prod
+# WORKDIR /app
 
-# NestJS Projekt bauen
-RUN npm run build
+# # set production env
+# ENV NODE_ENV=production
 
-# Render setzt PORT automatisch
-EXPOSE 10000
+# # copy built app + package.json to install prod deps only
+# COPY --from=builder /app/package*.json ./
+# COPY --from=builder /app/dist ./dist
 
-# Production Start
-CMD ["node", "dist/src/main.js"]
+# # install only production deps
+# RUN npm ci
+
+# # expose port (Render setzt PORT env, EXPOSE ist nur dokumentativ)
+# EXPOSE 4000
+
+# # use the PORT env if your app reads it; adjust path if your build outputs differ
+# # Typical NestJS entry: dist/main.js (or dist/src/main.js). Replace if needed.
+# CMD ["node", "dist/src/main.js"]
